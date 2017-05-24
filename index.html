@@ -1,22 +1,24 @@
 <!DOCTYPE html>
 <html ng-app="listaTelefonica">
+<meta charset="UTF-8">
 
 <head>
 	<title>Lista Telefonica</title>
 	<link rel="stylesheet" type="text/css" href="lib\bootstrap\css\bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="lib\css\stilo.css">
 	<script src="lib/angular/angular.js"></script>
+	<script src="lib/angular/i18n/angular-locale_pt-br.js"></script>
 	<script src="lib/angular/angular-messages.js"></script>
 	<script>
 		angular.module("listaTelefonica", ["ngMessages"]);
-		angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function ($scope) {
-				
+		angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function ($scope, $filter,uppercaseFilter) {
+
 
 			$scope.app = "Lista Telefonica";
 			$scope.contatos = [
-				{ nome: "Pedro", telefone: "99998888", cor: "blue" },
-				{ nome: "Ana", telefone: "99998877", cor: "yellow" },
-				{ nome: "Maria", telefone: "99998866", cor: "red" }
+				{ nome: $filter('uppercase')("Pedro"), telefone: "99998888", date: new Date(), cor: "blue" },
+				{ nome: uppercaseFilter("Ana"), telefone: "99998877", date: new Date(), cor: "yellow" },
+				{ nome: "Maria", telefone: "99998866", date: new Date(), cor: "red" }
 			];
 			$scope.operadoras = [
 				{ nome: "Claro", codigo: "21", categoria: "Celular" },
@@ -42,6 +44,10 @@
 					return contato.selecionado;
 				});
 			};
+			$scope.ordernarPor = function(campo){
+				$scope.order=campo;
+				$scope.invert = !$scope.invert;
+			};
 		});
 	</script>
 </head>
@@ -49,22 +55,25 @@
 <body ng-controller="listaTelefonicaCtrl">
 	<div class="jumbotron">
 		<h3>{{app}}</h3>
+		<input class="form-control" type="text" ng-model="busca" placeholder="O que você está buscando?" />
 		<table ng-show="contatos.length>0" class="table">
 			<tr>
 				<th></th>
-				<th>Nome</th>
-				<th>Telefone</th>
+				<th><a href="" ng-click="ordernarPor('nome')" /> Nome</th>
+				<th><a href="" ng-click="ordernarPor('telefone')" />Telefone</th>
 				<th>Operadora</th>
 				<th>Cor</th>
+				<th>Data</th>
 			</tr>
-			<tr ng-class="{'selecionado negrito': contato.selecionado}" ng-repeat="contato in contatos">
+			<tr ng-class="{'selecionado negrito': contato.selecionado}" ng-repeat="contato in contatos | filter:busca | orderBy:order:invert">
 				<td><input type="checkbox" ng-model="contato.selecionado" /></td>
 				<td>{{contato.nome}}</td>
 				<td>{{contato.telefone}}</td>
-				<td>{{contato.operadora.nome}}</td>
+				<td>{{contato.operadora.nome | lowercase}}</td>
 				<td>
 					<div style="width: 20px; height: 20px;" ng-style="{'background-color': contato.cor}">
 				</td>
+				<td>{{contato.date | date:'EEE dd/MM/yyyy'}}</td>
 			</tr>
 		</table>
 		<hr/>
@@ -72,7 +81,7 @@
 			<input class="form-control" type="text" ng-model="contato.nome" name="nome" placeholder="Nome" ng-required="true" ng-minlength="10">
 			<input class="form-control" type="text" ng-model="contato.telefone" name="telefone" placeholder="Telefone" ng-required="true"
 			 ng-pattern="/^\d{4,5}-\d{4}$/">
-			<select class="form-control" ng-model="contato.operadora" ng-options="operadora.nome group by operadora.categoria for operadora in operadoras">
+			<select class="form-control" ng-model="contato.operadora" ng-options="operadora.nome group by operadora.categoria for operadora in operadoras | orderBy:'nome'">
 			<option value="">Selecione uma operadora</option>
 			</select>
 		</form>
@@ -93,7 +102,7 @@
 		<button class="btn btn-primary btn-block actions" ng-click="adicionarContato(contato)" ng-disabled="contatoForm.$invalid">Adicionar Contato</button>
 		<button class="btn btn-danger btn-block actions" ng-click="apagaContato(contatos)" ng-if="isContatoSelecionado(contatos)">Apagar Contatos</button>
 		</div>
-		<!--<div ng-include="'footer.html'"></div>-->
+		<div ng-include="'footer.html'"></div>
 </body>
 
 </html>
