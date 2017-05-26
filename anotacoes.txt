@@ -1,0 +1,25 @@
+Utilização de filtros
+
+-Uppercase
+Tem a opção de importar o $filter e ou uppercaseFilter, como no exemplo abaixo:
+  function ($scope, $filter, $http, uppercaseFilter)
+
+no exemplo da lista telefonica, utilizei o filtro no json das formas abaixo
+        {nome: $filter('uppercase')("Pedro"), telefone: "99998888", date: new Date(), cor: "blue"},
+        {nome: uppercaseFilter("Ana"), telefone: "99998877", date: new Date(), cor: "yellow"},
+
+-.sucess/.error
+  Foram substituídos por .then/.catch
+  Utilização abaixo
+     .then(function (response) {
+                $scope.operadoras = response.data;
+            })
+            .catch(function (response) {
+                $scope.message("Aconteceu um problema: " + response.data);
+            });
+
+-push no json
+no começo do exercicio, para adicionar no json, usamos o metodo push
+    $scope.contatos.push(angular.copy(contato));
+Após incluir o servico, utilizamos o metodo post
+    $http.post("http://localhost:3412/contatos", contato).then(function (response) {
