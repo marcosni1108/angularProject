@@ -1,3 +1,16 @@
+Mensagens de erro do telefone
+-Outra forma de utilizar é 
+
+		<div ng-show="contatoForm.telefone.$dirty" ng-messages="contatoForm.telefone.$error">
+			<div ng-message="required" class="alert alert-danger">
+				Por favor, preencha o campo telefone!
+			</div>
+			<div ng-show="contatoForm.telefone.$error.pattern" class="alert alert-danger">
+				O campo telefone deve ter o formato DDDD-DDDD
+			</div>
+		</div>
+
+
 Utilização de filtros
 
 -Uppercase
