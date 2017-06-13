@@ -16,12 +16,18 @@
 	<script src="js/value/configValue.js"></script>
 	<script src="js/services/serialGeneratorService.js"></script>
 	<script src="js/config/serialGeneratorProvider.js"></script>
+	<script src="js/directives/uiAlertDirective.js"></script>
 </head>
 
 <body ng-controller="listaTelefonicaCtrl">
 	<div class="jumbotron">
-		console.log()
 		<h3>{{app}}</h3>
+
+		<!--como estou usando ng-transclude, não precisa colocar o message="message"-->
+		<ui-alert title="Ops, aconteceu um problema!" message="message">
+			{{message}}
+		</ui-alert>
+
 		<input class="form-control" type="text" ng-model="busca" placeholder="O que você está buscando?" />
 		<table ng-show="contatos.length>0" class="table">
 			<tr>

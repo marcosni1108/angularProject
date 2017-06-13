@@ -9,7 +9,7 @@ angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function ($s
             $scope.contatos = response.data;
         })
             .catch(function (response) {
-                $scope.message("Aconteceu um problema: " + response.data);
+                $scope.message ="Não foi possível carregar os dados!";
             });
     };
 
@@ -18,7 +18,7 @@ angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function ($s
             $scope.operadoras = response.data;
         })
             .catch(function (response) {
-                $scope.message("Aconteceu um problema: " + response.data);
+                $scope.message="Não foi possível carregar os dados!";
             });
     };
 

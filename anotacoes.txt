@@ -23,3 +23,10 @@ no começo do exercicio, para adicionar no json, usamos o metodo push
     $scope.contatos.push(angular.copy(contato));
 Após incluir o servico, utilizamos o metodo post
     $http.post("http://localhost:3412/contatos", contato).then(function (response) {
+
+cláusula restrict:
+    A - Diretiva restrita ao atributo do elemento
+    E - Diretiva restrita ao elemento
+    C - Diretiva restrita a classe  do elemento
+    M - Diretiva restrita ao comentário do elemento
+É possível combinar as restrições
