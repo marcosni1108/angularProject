@@ -18,12 +18,24 @@
 	<script src="js/config/serialGeneratorProvider.js"></script>
 	<script src="js/directives/uiAlertDirective.js"></script>
 	<script src="js/directives/uiDateDirective.js"></script>
+	<script src="js/directives/uiAccordionDirective.js"></script>
 </head>
 
 <body ng-controller="listaTelefonicaCtrl">
 	<div class="jumbotron">
-		<h3>{{app}}</h3>
 
+
+		<h3>{{app}}</h3>
+		
+		<ui-accordions>
+			<ui-accordion title="Accordion 1">
+				Gostaria de enfatizar que o fenômeno da Internet acarreta um processo de reformulação e modernização das novas proposições.
+			</ui-accordion>
+			<ui-accordion title="Accordion 2">
+				No entanto, não podemos esquecer que a contínua expansão de nossa atividade é uma das consequências do sistema de formação
+				de quadros que corresponde às necessidades.
+			</ui-accordion>
+		</ui-accordions>
 		<!--como estou usando ng-transclude, não precisa colocar o message="message"-->
 		<ui-alert title="Ops, aconteceu um problema!" message="message" ng-show="message">
 			{{message}}
