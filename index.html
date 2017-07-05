@@ -17,6 +17,7 @@
 	<script src="js/services/serialGeneratorService.js"></script>
 	<script src="js/config/serialGeneratorProvider.js"></script>
 	<script src="js/directives/uiAlertDirective.js"></script>
+	<script src="js/directives/uiDateDirective.js"></script>
 </head>
 
 <body ng-controller="listaTelefonicaCtrl">
@@ -36,8 +37,8 @@
 				<th><a href="" ng-click="ordernarPor('nome')" /> Nome</th>
 				<th><a href="" ng-click="ordernarPor('telefone')" />Telefone</th>
 				<th>Operadora</th>
-				<!--<th>Cor</th>
-				<th>Data</th>-->
+				<!--<th>Cor</th>-->
+				<!--<th>Data</th>-->
 			</tr>
 			<tr ng-class="{'selecionado negrito': contato.selecionado}" ng-repeat="contato in contatos | filter:busca | orderBy:order:invert">
 				<td><input type="checkbox" ng-model="contato.selecionado" /></td>
@@ -57,6 +58,7 @@
 			<input class="form-control" type="text" ng-model="contato.nome" name="nome" placeholder="Nome" ng-required="true" ng-minlength="10">
 			<input class="form-control" type="text" ng-model="contato.telefone" name="telefone" placeholder="Telefone" ng-required="true"
 			 ng-pattern="/^\d{4,5}-\d{4}$/">
+			<input class="form-control" type="text" ng-model="contato.data" name="data" placeholder="Data" ui-date/>
 			<select class="form-control" ng-model="contato.operadora" ng-options="operadora.nome group by operadora.categoria for operadora in operadoras | orderBy:'nome'">
 			<option value="">Selecione uma operadora</option>
 			</select>
